@@ -1,6 +1,7 @@
 from os import sep
+from SampleProject.settings import BASE_DIR
 
-TOKEN_CSV_PATH = f"web_application_8000{sep}notes{sep}tokens.csv"
+TOKEN_CSV_PATH = f"{BASE_DIR}{sep}notes{sep}tokens.csv"
 
 class GoAPITasks:
     PRIMES = "prime_list"
