@@ -33,10 +33,10 @@ func PrimeList(w http.ResponseWriter, r *http.Request) {
 	prime_list := prime_numbers.FindListOfPrimes(int(upper_limit))
 
 	var resp map[string]interface{} = map[string]interface{}{
-		"function":      "Find the list of all Prime Numbers <= 'n'.",
-		"input":         upper_limit,
-		"prime_numbers": prime_list,
-		"length":        len(prime_list),
+		"function": "Find the list of all Prime Numbers <= 'n'.",
+		"query":    upper_limit,
+		"result":   prime_list,
+		"length":   len(prime_list),
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -54,8 +54,8 @@ func FindFactors(w http.ResponseWriter, r *http.Request) {
 	factor_list := factors.FindFactors(num)
 	var resp map[string]interface{} = map[string]interface{}{
 		"function": "Find the list of all Factors of 'n'.",
-		"input":    num,
-		"factors":  factor_list,
+		"query":    num,
+		"result":   factor_list,
 		"length":   len(factor_list),
 	}
 
@@ -73,9 +73,9 @@ func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	}
 	binary_number := binaries.Int64ToBinary(int(num))
 	var resp map[string]interface{} = map[string]interface{}{
-		"function":      "Convert 'n' in decimal to 'n' in binary.",
-		"input":         num,
-		"binary_number": binary_number,
+		"function": "Convert 'n' in decimal to 'n' in binary.",
+		"query":    num,
+		"result":   binary_number,
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -91,10 +91,10 @@ func RandomBinary(w http.ResponseWriter, r *http.Request) {
 	}
 	binary_number := binaries.GenerateRandomBinaryNumber(int(bits))
 	var resp = map[string]interface{}{
-		"function":      "Generate a random binary number of 'n' bits.",
-		"input":         int(bits),
-		"binary_number": binary_number,
-		"length":        int(bits),
+		"function": "Generate a random binary number of 'n' bits.",
+		"query":    int(bits),
+		"result":   binary_number,
+		"length":   int(bits),
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
