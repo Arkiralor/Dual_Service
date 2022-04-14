@@ -45,6 +45,7 @@ PRIME_LIST_URL = [string]
 FIND_FACTORS_URL = [string]
 INT_TO_BINARY_URL = [string]
 RANDOM_BINARY_URL = [string]
+RANDOM_BINARY_URL = [string]
 ```
 
 ### Go
