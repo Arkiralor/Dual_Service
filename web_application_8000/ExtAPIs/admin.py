@@ -7,7 +7,7 @@ from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToIntModel, Ra
 @admin.register(Prime)
 class PrimeAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'query', 'result')
+                    'length', 'query')
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'query']
     list_per_page = 50
@@ -16,7 +16,7 @@ class PrimeAdmin(admin.ModelAdmin):
 @admin.register(Factor)
 class FactorAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'query', 'result')
+                    'length', 'query')
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'query']
     list_per_page = 50

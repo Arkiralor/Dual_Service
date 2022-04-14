@@ -15,12 +15,12 @@ class Prime(models.Model):
     query = models.IntegerField()
     result = ArrayField(
         models.IntegerField(),
-        size=4096,
+        size=8191,
     )
 
     class Meta:
         ordering = ['-requested_at']
-        unique_together = ('function', 'result', 'query')
+        unique_together = ('function', 'query')
 
     def __str__(self):
         return f"{self.function}"
@@ -40,7 +40,7 @@ class Factor(models.Model):
 
     class Meta:
         ordering = ['-requested_at']
-        unique_together = ('function', 'result', 'query')
+        unique_together = ('function', 'query')
 
     def __str__(self):
         return f"{self.function}"

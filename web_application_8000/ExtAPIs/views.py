@@ -1,3 +1,4 @@
+from ctypes import sizeof
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -30,6 +31,9 @@ class FindPrimesInRangeView(APIView):
         if not qryset:
             resp = GoAPIHandler.dispatch(task=self.task, query=params)
             resp['requested_by'] = request.user.id
+            if len(resp['result']) > 8191:
+                resp['result'] = resp['result'][:8190]
+                resp['function'] = resp.get('function') + ' (truncated till [8190])'
             new_qryset = PrimeSerializer(data=resp)
             if new_qryset.is_valid():
                 new_qryset.save()
@@ -60,6 +64,9 @@ class FindFactors(APIView):
         if not qryset:
             resp = GoAPIHandler.dispatch(task=self.task, query=params)
             resp['requested_by'] = request.user.id
+            if len(resp['result']) > 8191:
+                resp['result'] = resp['result'][:8190]
+                resp['function'] = resp.get('function') + ' (truncated till [8190])'
             new_qryset = FactorSerializer(data=resp)
             if new_qryset.is_valid():
                 new_qryset.save()
