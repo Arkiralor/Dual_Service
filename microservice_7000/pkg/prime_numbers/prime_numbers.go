@@ -1,7 +1,9 @@
 // Package to deal with Prime Numbers.
 package prime_numbers
 
-import "fmt"
+import (
+	"log"
+)
 
 // Functions to find all prime numbers in the range 1 - n, where 'n' is the inclusive upper limit of the search.
 func FindListOfPrimes(upper_limit int) []int {
@@ -11,7 +13,7 @@ func FindListOfPrimes(upper_limit int) []int {
 
 	for i := 3; i <= upper_limit; i += 1 {
 		if CheckIfPrime(i) {
-			fmt.Println("Prime number found: ", i)
+			log.Println("Prime number found: ", i)
 			prime_list = append(prime_list, i)
 		}
 	}
