@@ -13,7 +13,7 @@ A Django Rest API that uses Go via Gorilla Microservice to execute mathematicall
 7. `./web_application_8000/manage.py createsuperuser`
 8. `cd microservice_7000/cmd/main`
 9. `go build`
-10. `cd ../..`
+10. `cd ../../..`
 11. `./statup_dj.sh`
 12. Open another terminal and run `./startup_go.sh`
 
