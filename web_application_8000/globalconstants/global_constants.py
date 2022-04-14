@@ -1,6 +1,6 @@
 from os import sep
 
-TOKEN_CSV_PATH = f"notes{sep}tokens.csv"
+TOKEN_CSV_PATH = f"web_application_8000{sep}notes{sep}tokens.csv"
 
 class GoAPITasks:
     PRIMES = "prime_list"

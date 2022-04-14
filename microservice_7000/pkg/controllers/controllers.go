@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"sample_project/pkg/binaries"
@@ -33,7 +34,7 @@ func PrimeList(w http.ResponseWriter, r *http.Request) {
 	prime_list := prime_numbers.FindListOfPrimes(int(upper_limit))
 
 	var resp map[string]interface{} = map[string]interface{}{
-		"function": "Find the list of all Prime Numbers <= 'n'.",
+		"function": fmt.Sprintf("Find the list of all Prime Numbers <= '%v'.", upper_limit),
 		"query":    upper_limit,
 		"result":   prime_list,
 		"length":   len(prime_list),
@@ -53,7 +54,7 @@ func FindFactors(w http.ResponseWriter, r *http.Request) {
 	}
 	factor_list := factors.FindFactors(num)
 	var resp map[string]interface{} = map[string]interface{}{
-		"function": "Find the list of all Factors of 'n'.",
+		"function": fmt.Sprintf("Find the list of all Factors of '%v'.", num),
 		"query":    num,
 		"result":   factor_list,
 		"length":   len(factor_list),
@@ -73,7 +74,7 @@ func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	}
 	binary_number := binaries.Int64ToBinary(int(num))
 	var resp map[string]interface{} = map[string]interface{}{
-		"function": "Convert 'n' in decimal to 'n' in binary.",
+		"function": fmt.Sprintf("Convert '%v' in decimal to '%v' in binary.", num, num),
 		"query":    num,
 		"result":   binary_number,
 	}
@@ -91,7 +92,7 @@ func RandomBinary(w http.ResponseWriter, r *http.Request) {
 	}
 	binary_number := binaries.GenerateRandomBinaryNumber(int(bits))
 	var resp = map[string]interface{}{
-		"function": "Generate a random binary number of 'n' bits.",
+		"function": fmt.Sprintf("Generate a random binary number of '%v' bits.", bits),
 		"query":    int(bits),
 		"result":   binary_number,
 		"length":   int(bits),
