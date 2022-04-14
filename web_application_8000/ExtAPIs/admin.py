@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToInt, RandomBinary
+from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToIntModel, RandomBinary
 
 # Register your models here.
 
@@ -31,7 +31,7 @@ class IntToBinaryAdmin(admin.ModelAdmin):
     list_per_page = 50
 
 
-@admin.register(BinaryToInt)
+@admin.register(BinaryToIntModel)
 class BinaryToIntAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
                     'length', 'query', 'result')

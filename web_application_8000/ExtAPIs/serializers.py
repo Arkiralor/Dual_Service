@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToInt, RandomBinary
+from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToIntModel, RandomBinary
 
 
 class PrimeSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class IntToBinarySerializer(serializers.ModelSerializer):
 
 class BinaryToIntSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BinaryToInt
+        model = BinaryToIntModel
         fields = '__all__'
 
 

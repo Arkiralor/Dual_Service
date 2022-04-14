@@ -12,4 +12,5 @@ var RegisterRoutes = func(router *mux.Router) {
 	router.HandleFunc("/api/v1/find_factors", controllers.FindFactors).Methods("GET")
 	router.HandleFunc("/api/v1/int_to_binary", controllers.IntToBinary).Methods("GET")
 	router.HandleFunc("/api/v1/random_binary", controllers.RandomBinary).Methods("GET")
+	router.HandleFunc("/api/v1/binary_to_int", controllers.BinToInteger).Methods("GET")
 }

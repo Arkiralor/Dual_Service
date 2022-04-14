@@ -63,7 +63,7 @@ class IntToBinaryModel(models.Model):
         return f"{self.function}"
 
 
-class BinaryToInt(models.Model):
+class BinaryToIntModel(models.Model):
     requested_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name='last_bintoint_requester', null=True)
     requested_at = models.DateTimeField(auto_now=True)

@@ -2,7 +2,7 @@ import http
 import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
-    FIND_FACTORS_URL, INT_TO_BINARY_URL, RANDOM_BINARY_URL
+    FIND_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL
 
 import http
 import requests
@@ -17,6 +17,7 @@ class GoAPIHandler:
     prime_list_url = PRIME_LIST_URL
     find_factors_url = FIND_FACTORS_URL
     int_to_binary_url = INT_TO_BINARY_URL
+    binary_to_int_url = BINARY_TO_INT_URL
     random_binary_url = RANDOM_BINARY_URL
     headers = {
         'Content-Type': 'application/json',
@@ -31,6 +32,8 @@ class GoAPIHandler:
             resp = cls.find_factors(query)
         elif task is GoAPITasks.INT_TO_BINARY:
             resp = cls.int_to_binary(query)
+        elif task is GoAPITasks.BINARY_TO_INT:
+            resp = cls.binary_to_int(query)
         elif task is GoAPITasks.RANDOM_BINARY:
             resp = cls.random_binary(query)
         else:
@@ -92,5 +95,15 @@ class GoAPIHandler:
         }
         return cls.make_request(
             url=cls.base_url+cls.random_binary_url,
+            params=params
+        )
+
+    @classmethod
+    def binary_to_int(cls, query):
+        params = {
+            "binary_number": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.binary_to_int_url,
             params=params
         )

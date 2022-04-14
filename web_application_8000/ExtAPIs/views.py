@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToInt, RandomBinary
+from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToIntModel, RandomBinary
 from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, IntToBinarySerializer,\
     BinaryToIntSerializer, RandomBinarySerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
@@ -116,10 +116,22 @@ class BinaryToInt(APIView):
 
     def get(self, request):
         params = request.query_params.get('binary_number', 0)
-        resp = GoAPIHandler.dispatch(task=self.task, query=params)
-
+        qryset = BinaryToIntModel.objects.filter(query=params).first()
+        if not qryset:
+            resp = GoAPIHandler.dispatch(task=self.task, query=params)
+            resp['requested_by'] = request.user.id
+            new_qryset = BinaryToIntSerializer(data=resp)
+            if new_qryset.is_valid():
+                new_qryset.save()
+                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(
+                    new_qryset.errors, 
+                    status=status.HTTP_400_BAD_REQUEST
+                    )
+        serialized = BinaryToIntSerializer(qryset)
         return Response(
-            resp,
+            serialized.data,
             status=status.HTTP_200_OK
         )
 

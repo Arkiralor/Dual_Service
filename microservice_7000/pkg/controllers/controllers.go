@@ -83,6 +83,25 @@ func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+func BinToInteger(w http.ResponseWriter, r *http.Request) {
+	binary_number_str := r.URL.Query().Get("binary_number")
+	binary_number, err := strconv.ParseInt(binary_number_str, 10, 0)
+	if err != nil {
+		log.Printf("Error: %v", err.Error())
+		panic(err)
+	}
+	integer_number := binaries.BinaryToInt(int(binary_number))
+
+	var resp = map[string]interface{}{
+		"function": fmt.Sprintf("Convert '%v' in binary to '%v' in decimal.", binary_number_str, integer_number),
+		"query":    binary_number_str,
+		"result":   integer_number,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+}
+
 func RandomBinary(w http.ResponseWriter, r *http.Request) {
 	bits_str := r.URL.Query().Get("bits")
 	bits, err := strconv.ParseInt(bits_str, 10, 0)
