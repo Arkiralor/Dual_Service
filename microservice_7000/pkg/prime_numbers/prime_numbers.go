@@ -17,6 +17,7 @@ func FindListOfPrimes(upper_limit int) []int {
 			prime_list = append(prime_list, i)
 		}
 	}
+	log.Printf("Returning prime list: %v\n", prime_list)
 	return prime_list
 }
 
