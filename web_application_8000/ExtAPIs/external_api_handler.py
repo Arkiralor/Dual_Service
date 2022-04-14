@@ -2,7 +2,7 @@ import http
 import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
-    FIND_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_UR
+    FIND_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL
 from globalconstants.global_constants import GoAPITasks
 
 
