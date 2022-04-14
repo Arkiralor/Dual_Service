@@ -4,6 +4,14 @@ import requests
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
     FIND_FACTORS_URL, INT_TO_BINARY_URL, RANDOM_BINARY_URL
 
+import http
+import requests
+
+from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
+    FIND_FACTORS_URL, INT_TO_BINARY_URL, RANDOM_BINARY_URL
+from globalconstants.global_constants import GoAPITasks
+
+
 class GoAPIHandler:
     base_url = GO_BASE_URL
     prime_list_url = PRIME_LIST_URL
@@ -13,82 +21,76 @@ class GoAPIHandler:
     headers = {
         'Content-Type': 'application/json',
         'Accept': '*/*'
-        }
+    }
 
     @classmethod
-    def make_request(cls, task:str="", param = 0):
-        if task == "prime_list":
-            params = {
-                "upper_limit": param
-            }
+    def dispatch(cls, task: str = "", query=0):
+        if task is GoAPITasks.PRIMES:
+            resp = cls.find_prime_list(query)
+        elif task is GoAPITasks.FACTORS:
+            resp = cls.find_factors(query)
+        elif task is GoAPITasks.INT_TO_BINARY:
+            resp = cls.int_to_binary(query)
+        elif task is GoAPITasks.RANDOM_BINARY:
+            resp = cls.random_binary(query)
+        else:
+            raise Exception(
+                status_code=http.HTTPStatus.BAD_REQUEST,
+                detail="Invalid task"
+            )
+        return resp
 
-            resp = requests.get(
-                cls.base_url+cls.prime_list_url, 
-                params=params,
-                headers=cls.headers
+    @classmethod
+    def make_request(cls, url, params):
+        resp = requests.get(
+            url=url,
+            params=params,
+            headers=cls.headers
+        )
+        if resp.status_code in (200, 201, 202):
+            return resp.json()
+        else:
+            raise Exception(
+                status_code=resp.status_code,
+                detail=resp.content
             )
 
-            if resp.status_code == 200:
-                return resp.json()
-            else:
-                raise Exception(
-                    status_code=404, 
-                    detail="Item not found"
-                )
-        elif task == "find_factors":
-            params = {
-                "num": param
-            }
+    @classmethod
+    def find_prime_list(cls, query):
+        params = {
+            "upper_limit": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.prime_list_url,
+            params=params
+        )
 
-            resp = requests.get(
-                cls.base_url+cls.find_factors_url, 
-                params=params,
-                headers=cls.headers
-            )
+    @classmethod
+    def find_factors(cls, query):
+        params = {
+            "num": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.find_factors_url,
+            params=params
+        )
 
-            if resp.status_code == 200:
-                return resp.json()
-            else:
-                raise Exception(
-                    status_code=404, 
-                    detail="Item not found"
-                )
-        elif task == "int_to_binary":
-            params = {
-                "num": param
-            }
+    @classmethod
+    def int_to_binary(cls, query):
+        params = {
+            "num": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.int_to_binary_url,
+            params=params
+        )
 
-            resp = requests.get(
-                cls.base_url+cls.int_to_binary_url, 
-                params=params,
-                headers=cls.headers
-            )
-
-            if resp.status_code == 200:
-                return resp.json()
-            else:
-                raise Exception(
-                    status_code=404, 
-                    detail="Item not found"
-                )
-
-        elif task == "random_binary":
-            params = {
-                "bits": param
-            }
-
-            resp = requests.get(
-                cls.base_url+cls.random_binary_url, 
-                params=params,
-                headers=cls.headers
-            )
-
-            if resp.status_code == 200:
-                return resp.json()
-            else:
-                raise Exception(
-                    status_code=404, 
-                    detail="Item not found"
-                )
-            
-        
+    @classmethod
+    def random_binary(cls, query):
+        params = {
+            "bits": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.random_binary_url,
+            params=params
+        )

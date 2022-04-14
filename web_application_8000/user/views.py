@@ -1,5 +1,6 @@
 from .models import User
 from user.serializers import UserSerializer, UserAdminSerializer
+from user.utils import FileOperation
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -103,6 +104,7 @@ class UserLoginView(APIView):
             )
 
         token = Token.objects.get_or_create(user=user)
+        FileOperation.write_token_to_file(user.username,token[0])
         return Response(
             {
                 "token": str(token[0])

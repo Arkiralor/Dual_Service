@@ -10,6 +10,7 @@ from ExtAPIs.primes import PrimeNumber
 from ExtAPIs.factors import Factor
 from ExtAPIs.binaries import Binary
 from ExtAPIs.external_api_handler import GoAPIHandler
+from globalconstants.global_constants import GoAPITasks
 
 # Create your views here.
 
@@ -138,12 +139,12 @@ class FindPrimesInRangeView(APIView):
     '''
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    task = "prime_list"
+    task = GoAPITasks.PRIMES
 
     def get(self, request):
 
         params = request.query_params.get('upper_limit', 0)
-        resp = GoAPIHandler.make_request(task=self.task, param=params)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
 
         return Response(
             resp,
@@ -157,11 +158,11 @@ class FindFactors(APIView):
     '''
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    task = "find_factors"
+    task = GoAPITasks.FACTORS
 
     def get(self, request):
         params = request.query_params.get('num', 0)
-        resp = GoAPIHandler.make_request(task=self.task, param=params)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
         return Response(
             resp,
             status=status.HTTP_200_OK
@@ -174,11 +175,11 @@ class RandomBinaryNumber(APIView):
     '''
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    task = "random_binary"
+    task = GoAPITasks.RANDOM_BINARY
 
     def get(self, request):
         params = request.query_params.get('bits', 0)
-        resp = GoAPIHandler.make_request(task=self.task, param=params)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
 
         return Response(
             resp,
@@ -192,11 +193,11 @@ class BinaryToInt(APIView):
     '''
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    task = "binary_to_int"
+    task = GoAPITasks.BINARY_TO_INT
 
     def get(self, request):
         params = request.query_params.get('binary_number', 0)
-        resp = GoAPIHandler.make_request(task=self.task, param=params)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
 
         return Response(
             resp,
@@ -210,11 +211,10 @@ class IntToBinary(APIView):
     '''
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-    task = "int_to_binary"
-
+    task = GoAPITasks.INT_TO_BINARY
     def get(self, request):
         params = request.query_params.get('num', 0)
-        resp = GoAPIHandler.make_request(task=self.task, param=params)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
         return Response(
             resp,
             status=status.HTTP_200_OK
