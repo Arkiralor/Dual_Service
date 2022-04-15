@@ -22,6 +22,8 @@ The Go Web-Application that we will build in Go will be used for more complex ta
 - Computing the Factors of a given number.
 - Computing the Prime Factors of a given number, etc.
 
+## Simplified Algorithm
+
 In our Django application, we will have models to store the returned data from the Go Web-Application.
 
 If a user inputs a query to a particular path in the Django app, it will first search the model for the query and return the result.
@@ -29,6 +31,39 @@ If a user inputs a query to a particular path in the Django app, it will first s
 If however, the query is not found in the model, it will then hit the Go Web-Application and return the result.
 
 In this way, the query is returned with the least possible time-delay and the highest possible performance.
+
+For a given request to the Django API:
+
+```python
+def find_something(request):
+    query = request.GET.get('query')
+    qryset = SomeModel.objects.filter(query=query).first()
+    if not qryset:
+        resp = SomeClass.query_handler(query)
+        resp_deserialized = SomeSerializer(data = resp)
+        resp_deserialized.save()
+        return Response(
+            resp_deserialized.data,
+            status = 200
+        )
+    serialized = SomeSerializer(qryset)
+    return Response(
+        serialized.data,
+        status = 200
+    )
+    
+```
+
+The `query_handler()` for its part executes the following steps:
+
+```python
+def query_handler(query):
+    if...else(task in query)
+    url = task.url
+    resp = SameClass.make_request(url, params = query, headers)
+    return resp.json()
+```
+
 
 ## Setup
 
