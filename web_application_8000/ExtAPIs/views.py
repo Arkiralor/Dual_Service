@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from ExtAPIs.models import Prime, Factor, IntToBinaryModel, BinaryToIntModel, RandomBinary
-from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, IntToBinarySerializer,\
+from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary
+from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, PrimeFactorSerializer, IntToBinarySerializer,\
     BinaryToIntSerializer, RandomBinarySerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
 from globalconstants.global_constants import GoAPITasks
@@ -77,6 +77,39 @@ class FindFactors(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                     )
         serialized = FactorSerializer(qryset)
+        return Response(
+            serialized.data,
+            status=status.HTTP_200_OK
+        )
+
+
+class PrimeFactorView(APIView):
+    '''
+    API to find the prime factors of a given number.
+    '''
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    task = GoAPITasks.PRIME_FACTORS
+
+    def get(self, request):
+        params = request.query_params.get('num', 0)
+        qryset = PrimeFactorModel.objects.filter(query = params).first()
+        if not qryset:
+            resp = GoAPIHandler.dispatch(task=self.task, query=params)
+            resp['requested_by'] = request.user.id
+            if resp.get('length') > 8191:
+                resp['result'] = resp.get('result')[:8190]
+                resp['function'] = resp.get('function') + ' (truncated till [8190])'
+            new_qryset = PrimeFactorSerializer(data=resp)
+            if new_qryset.is_valid():
+                new_qryset.save()
+                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(
+                    new_qryset.errors, 
+                    status=status.HTTP_400_BAD_REQUEST
+                    )
+        serialized = PrimeFactorSerializer(qryset)
         return Response(
             serialized.data,
             status=status.HTTP_200_OK

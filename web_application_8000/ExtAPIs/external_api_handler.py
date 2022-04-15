@@ -2,7 +2,7 @@ import http
 import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
-    FIND_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL
+    FIND_FACTORS_URL, PRIME_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL
 from globalconstants.global_constants import GoAPITasks
 
 
@@ -10,6 +10,7 @@ class GoAPIHandler:
     base_url = GO_BASE_URL
     prime_list_url = PRIME_LIST_URL
     find_factors_url = FIND_FACTORS_URL
+    prime_factors_url = PRIME_FACTORS_URL
     int_to_binary_url = INT_TO_BINARY_URL
     binary_to_int_url = BINARY_TO_INT_URL
     random_binary_url = RANDOM_BINARY_URL
@@ -24,6 +25,8 @@ class GoAPIHandler:
             resp = cls.find_prime_list(query)
         elif task is GoAPITasks.FACTORS:
             resp = cls.find_factors(query)
+        elif task is GoAPITasks.PRIME_FACTORS:
+            resp = cls.find_prime_factors(query)
         elif task is GoAPITasks.INT_TO_BINARY:
             resp = cls.int_to_binary(query)
         elif task is GoAPITasks.BINARY_TO_INT:
@@ -69,6 +72,16 @@ class GoAPIHandler:
         }
         return cls.make_request(
             url=cls.base_url+cls.find_factors_url,
+            params=params
+        )
+
+    @classmethod
+    def find_prime_factors(cls, query):
+        params = {
+            "num": query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.prime_factors_url,
             params=params
         )
 
