@@ -2,7 +2,35 @@
 
 A Django Rest API that uses Go via Gorilla Microservice to execute mathematically intensive tasks.
 
-## Installation
+## Working Theory
+
+Python is a great language for writing web applications. However, it is not a great language for writing complex mathematical algorithms. Go, on the other hand, is a great language for writing complex mathematical algorithms as it is compiled to native code; so even if the time complexity of the algorithm remains the same, the performance of the algorithm will be much better in
+the real world.
+
+As Go also has a built-in HTTP server, it is possible to write a REST API in Go. We will use Gorilla/Mux to build our 
+Web APIs.
+
+The Django Web-Apllication that we will build in Python will be used for basic tasks, such as:
+
+- User Authentication
+- User Registration
+- Caching Results, etc.
+
+The Go Web-Application that we will build in Go will be used for more complex tasks, such as:
+
+- Computing the list of Prime Numbers in a given range.
+- Computing the Factors of a given number.
+- Computing the Prime Factors of a given number, etc.
+
+In our Django application, we will have models to store the returned data from the Go Web-Application.
+
+If a user inputs a query to a particular path in the Django app, it will first search the model for the query and return the result.
+
+If however, the query is not found in the model, it will then hit the Go Web-Application and return the result.
+
+In this way, the query is returned with the least possible time-delay and the highest possible performance.
+
+## Setup
 
 1. `python -m venv env`
 2. `source env/bin/activate`
@@ -43,6 +71,7 @@ USE_TZ = true/false
 GO_BASE_URL = [string]
 PRIME_LIST_URL = [string]
 FIND_FACTORS_URL = [string]
+PRIME_FACTORS_URL = [string]
 INT_TO_BINARY_URL = [string]
 RANDOM_BINARY_URL = [string]
 RANDOM_BINARY_URL = [string]
