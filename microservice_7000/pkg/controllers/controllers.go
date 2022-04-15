@@ -1,3 +1,4 @@
+// Controllers to handle all types of requests currently accepted by the API application.
 package controllers
 
 import (
@@ -11,6 +12,7 @@ import (
 	"strconv"
 )
 
+// Function to handle Index route.
 func Index(w http.ResponseWriter, r *http.Request) {
 	inp := r.URL.Query().Get("inp")
 	log.Println(inp)
@@ -23,6 +25,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+// Controller to handle request to find Prime Numbers <= 'upper_limit'.
 func PrimeList(w http.ResponseWriter, r *http.Request) {
 	upper_limit_str := r.URL.Query().Get("upper_limit")
 	upper_limit, err := strconv.ParseInt(upper_limit_str, 10, 0)
@@ -45,6 +48,7 @@ func PrimeList(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+// Controller to handle request to find all factors of 'num'.
 func FindFactors(w http.ResponseWriter, r *http.Request) {
 	num_str := r.URL.Query().Get("num")
 	num, err := strconv.Atoi(num_str)
@@ -65,7 +69,7 @@ func FindFactors(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-// View to find all prime factors of 'num' in GET request.
+//Controller to handle request to find all prime factors of 'num'.
 func FindPrimeFactors(response_writer http.ResponseWriter, request *http.Request) {
 	var prime_factors []int
 	num_str := request.URL.Query().Get("num")
@@ -94,6 +98,7 @@ func FindPrimeFactors(response_writer http.ResponseWriter, request *http.Request
 	json.NewEncoder(response_writer).Encode(resp)
 }
 
+//Controller to handle request to convert 'num' in base-10 to a base-2 number.
 func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	num_str := r.URL.Query().Get("num")
 	num, err := strconv.ParseInt(num_str, 10, 0)
@@ -112,6 +117,7 @@ func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+//Controller to handle request to convert 'binary_number' in base-2 to a base-10 number.
 func BinToInteger(w http.ResponseWriter, r *http.Request) {
 	binary_number_str := r.URL.Query().Get("binary_number")
 	binary_number, err := strconv.ParseInt(binary_number_str, 10, 0)
@@ -131,6 +137,7 @@ func BinToInteger(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+//Controller to handle request to generate a random 'bits'-bit binary number.
 func RandomBinary(w http.ResponseWriter, r *http.Request) {
 	bits_str := r.URL.Query().Get("bits")
 	bits, err := strconv.ParseInt(bits_str, 10, 0)
