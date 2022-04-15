@@ -24,7 +24,7 @@ The Go Web-Application that we will build in Go will be used for more complex ta
 
 ## Simplified Algorithm
 
-![Block Diagram Flowchart for the Algorithm](https://imgur.com/a/bZPdv4O)
+![Block Diagram Flowchart for the Algorithm](https://i.imgur.com/q0wddgC.png "Algorithm for the Application Set")
 
 In our Django application, we will have models to store the returned data from the Go Web-Application.
 
