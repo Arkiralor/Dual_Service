@@ -65,6 +65,35 @@ func FindFactors(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+// View to find all prime factors of 'num' in GET request.
+func FindPrimeFactors(response_writer http.ResponseWriter, request *http.Request) {
+	var prime_factors []int
+	num_str := request.URL.Query().Get("num")
+	num, err := strconv.ParseInt(num_str, 10, 0)
+	if err != nil {
+		log.Printf("Error: %v", err.Error())
+		panic(err)
+	}
+	factor_list := factors.FindFactors(int(num))
+	for i := 0; i < len(factor_list); i++ {
+		if prime_numbers.CheckIfPrime(factor_list[i]) {
+			log.Println("Prime factor found: ", factor_list[i])
+			prime_factors = append(prime_factors, factor_list[i]) //Filtering non-prime factors
+		}
+	}
+	prime_factors = prime_factors[1:] //Removing '1' as 1 is a co-prime of all numbers.
+	var resp map[string]interface{} = map[string]interface{}{
+		"function": fmt.Sprintf("Find Prime Factors of %v.", num),
+		"query":    num,
+		"result":   prime_factors,
+		"length":   len(prime_factors),
+	}
+	response_writer.Header().Set("Content-Type", "application/json")
+	response_writer.WriteHeader(http.StatusOK)
+	log.Printf("Returning response: %v", resp["result"])
+	json.NewEncoder(response_writer).Encode(resp)
+}
+
 func IntToBinary(w http.ResponseWriter, r *http.Request) {
 	num_str := r.URL.Query().Get("num")
 	num, err := strconv.ParseInt(num_str, 10, 0)
