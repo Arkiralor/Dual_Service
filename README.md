@@ -24,6 +24,8 @@ The Go Web-Application that we will build in Go will be used for more complex ta
 
 ## Simplified Algorithm
 
+![Block Diagram Flowchart for the Algorithm](https://imgur.com/a/bZPdv4O)
+
 In our Django application, we will have models to store the returned data from the Go Web-Application.
 
 If a user inputs a query to a particular path in the Django app, it will first search the model for the query and return the result.
