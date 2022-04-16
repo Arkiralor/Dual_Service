@@ -9,6 +9,7 @@ import (
 	"sample_project/pkg/binaries"
 	"sample_project/pkg/factors"
 	"sample_project/pkg/prime_numbers"
+	"sample_project/pkg/sequences"
 	"strconv"
 )
 
@@ -151,6 +152,104 @@ func RandomBinary(w http.ResponseWriter, r *http.Request) {
 		"query":    int(bits),
 		"result":   binary_number,
 		"length":   int(bits),
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+}
+
+func FibonacciSequenceController(w http.ResponseWriter, r *http.Request) {
+	terms_str := r.URL.Query().Get("terms")
+	terms, err := strconv.ParseInt(terms_str, 10, 0)
+	if err != nil {
+		log.Printf("Error: %v", err.Error())
+		panic(err)
+	}
+	fibonacci_sequence, resp_err := sequences.FibonacciSequence(int(terms))
+	if resp_err != nil {
+		log.Printf("Error: %v\n", resp_err.Error())
+	}
+	var resp = map[string]interface{}{
+		"function": fmt.Sprintf("Generate the Fibonacci Sequence up to '%v' terms.", terms),
+		"query":    int(terms),
+		"result":   fibonacci_sequence,
+		"length":   len(fibonacci_sequence),
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+}
+
+func RegularArithmeticSeriesController(w http.ResponseWriter, r *http.Request) {
+	start_str := r.URL.Query().Get("start")
+	terms_str := r.URL.Query().Get("terms")
+	cd_str := r.URL.Query().Get("cd")
+
+	start, start_err := strconv.ParseInt(start_str, 10, 0)
+	if start_err != nil {
+		log.Printf("Error: %v", start_err.Error())
+		panic(start_err)
+	}
+	terms, terms_err := strconv.ParseInt(terms_str, 10, 0)
+	if terms_err != nil {
+		log.Printf("Error: %v", terms_err.Error())
+		panic(terms_err)
+	}
+	cd, cd_err := strconv.ParseInt(cd_str, 10, 0)
+	if cd_err != nil {
+		log.Printf("Error: %v", cd_err.Error())
+		panic(cd_err)
+	}
+
+	arithmetic_series, err := sequences.RegularArithmeticSeries(int(start), int(terms), int(cd))
+	if err != nil {
+		log.Printf("Error: %v", err.Error())
+		panic(err)
+	}
+
+	var resp = map[string]interface{}{
+		"function": fmt.Sprintf("Generate an Arithmetic Series with: start = %d, n(terms) = %d, cd = %d", start, terms, cd),
+		"query":    int(terms),
+		"result":   arithmetic_series,
+		"length":   len(arithmetic_series),
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+}
+
+func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
+	start_str := r.URL.Query().Get("start")
+	terms_str := r.URL.Query().Get("terms")
+	cr_str := r.URL.Query().Get("cr")
+
+	start, start_err := strconv.ParseInt(start_str, 10, 0)
+	if start_err != nil {
+		log.Printf("Error: %v", start_err.Error())
+		panic(start_err)
+	}
+	terms, terms_err := strconv.ParseInt(terms_str, 10, 0)
+	if terms_err != nil {
+		log.Printf("Error: %v", terms_err.Error())
+		panic(terms_err)
+	}
+	cr, cr_err := strconv.ParseInt(cr_str, 10, 0)
+	if cr_err != nil {
+		log.Printf("Error: %v", cr_err.Error())
+		panic(cr_err)
+	}
+
+	geometric_series, err := sequences.RegularGeometricSeries(int(start), int(terms), int(cr))
+	if err != nil {
+		log.Printf("Error: %v", err.Error())
+		panic(err)
+	}
+
+	var resp = map[string]interface{}{
+		"function": fmt.Sprintf("Generate a Geometric Series with: start = %d, n(terms) = %d, cr = %d", start, terms, cr),
+		"query":    int(terms),
+		"result":   geometric_series,
+		"length":   len(geometric_series),
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
