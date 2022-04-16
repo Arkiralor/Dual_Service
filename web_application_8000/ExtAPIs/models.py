@@ -165,7 +165,7 @@ class GeoSeriesModel(models.Model):
     requested_at = models.DateTimeField(auto_now=True)
     function = models.CharField(max_length=256)
     length = models.IntegerField(blank=True, null=True)
-    start = models.IntegerField(default=0)
+    start = models.FloatField(default=0)
     terms = models.IntegerField(default=0)
     cr = models.IntegerField(default=0)
     result = ArrayField(

@@ -293,9 +293,9 @@ class RegGeoSeriesView(APIView):
     task = GoAPITasks.REG_GEO_SERIES
 
     def get(self, request):
-        start = request.query_params.get('start', 0)
-        terms = request.query_params.get('terms', 0)
-        cr = request.query_params.get('cr', 0)
+        start = float(request.query_params.get('start', 0))
+        terms = float(request.query_params.get('terms', 0))
+        cr = float(request.query_params.get('cr', 0))
         params = {
             'start': start,
             'terms': terms,

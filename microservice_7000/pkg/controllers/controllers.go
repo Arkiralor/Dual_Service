@@ -225,30 +225,30 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 	terms_str := r.URL.Query().Get("terms")
 	cr_str := r.URL.Query().Get("cr")
 
-	start, start_err := strconv.ParseInt(start_str, 10, 0)
+	start, start_err := strconv.ParseFloat(start_str, 10)
 	if start_err != nil {
 		log.Printf("Error: %v", start_err.Error())
 		panic(start_err)
 	}
-	terms, terms_err := strconv.ParseInt(terms_str, 10, 0)
+	terms, terms_err := strconv.ParseFloat(terms_str, 10)
 	if terms_err != nil {
 		log.Printf("Error: %v", terms_err.Error())
 		panic(terms_err)
 	}
-	cr, cr_err := strconv.ParseInt(cr_str, 10, 0)
+	cr, cr_err := strconv.ParseFloat(cr_str, 10)
 	if cr_err != nil {
 		log.Printf("Error: %v", cr_err.Error())
 		panic(cr_err)
 	}
 
-	geometric_series, err := sequences.RegularGeometricSeries(int(start), int(terms), int(cr))
+	geometric_series, err := sequences.RegularGeometricSeries(float32(start), float32(terms), float32(cr))
 	if err != nil {
 		log.Printf("Error: %v", err.Error())
 		panic(err)
 	}
 
 	var resp = map[string]interface{}{
-		"function": fmt.Sprintf("Generate a Geometric Series with: start = %d, n(terms) = %d, cr = %d", start, terms, cr),
+		"function": fmt.Sprintf("Generate a Geometric Series with: start = %v, n(terms) = %v, cr = %v", start, terms, cr),
 		"start":    int(start),
 		"terms":    int(terms),
 		"cr":       int(cr),
