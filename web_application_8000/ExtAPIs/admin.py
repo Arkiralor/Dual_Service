@@ -1,6 +1,6 @@
 from django.contrib import admin
-from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary
-
+from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary, \
+    FibonacciModel, ArithSeriesModel
 # Register your models here.
 
 
@@ -54,4 +54,22 @@ class RandomBinaryAdmin(admin.ModelAdmin):
                     'length', 'query', 'result')
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'query']
+    list_per_page = 50
+
+
+@admin.register(FibonacciModel)
+class FibonacciAdmin(admin.ModelAdmin):
+    list_display = ('requested_by', 'requested_at', 'function',
+                    'length', 'query', 'result')
+    ordering = ['-requested_at']
+    search_fields = ['function', 'result', 'query']
+    list_per_page = 50
+
+
+@admin.register(ArithSeriesModel)
+class ArithSeriesAdmin(admin.ModelAdmin):
+    list_display = ('requested_by', 'requested_at', 'function',
+                    'length', 'start', 'terms', 'cd', 'result')
+    ordering = ['-requested_at']
+    search_fields = ['function', 'result', 'start', 'terms', 'cd']
     list_per_page = 50
