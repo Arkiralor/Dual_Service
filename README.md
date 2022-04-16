@@ -7,7 +7,7 @@ A Django Rest API that uses Go via Gorilla Microservice to execute mathematicall
 Python is a great language for writing web applications. However, it is not a great language for writing complex mathematical algorithms. Go, on the other hand, is a great language for writing complex mathematical algorithms as it is compiled to native code; so even if the time complexity of the algorithm remains the same, the performance of the algorithm will be much better in
 the real world.
 
-As Go also has a built-in HTTP server, it is possible to write a REST API in Go. We will use Gorilla/Mux to build our 
+As Go also has a built-in HTTP server, it is possible to write a REST API in Go. We will use Gorilla/Mux to build our
 Web APIs.
 
 The Django Web-Apllication that we will build in Python will be used for basic tasks, such as:
@@ -66,7 +66,6 @@ def query_handler(query):
     return resp.json()
 ```
 
-
 ## Setup
 
 1. `python -m venv env`
@@ -112,6 +111,9 @@ PRIME_FACTORS_URL = [string]
 INT_TO_BINARY_URL = [string]
 RANDOM_BINARY_URL = [string]
 RANDOM_BINARY_URL = [string]
+FIBONACCI_URL = [string]
+REG_ARITH_SERIES_URL = [string]
+REG_GEO_SERIES_URL = [string]
 ```
 
 ### Go
