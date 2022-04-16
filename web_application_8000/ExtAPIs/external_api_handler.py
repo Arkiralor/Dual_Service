@@ -2,7 +2,8 @@ import http
 import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
-    FIND_FACTORS_URL, PRIME_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL
+    FIND_FACTORS_URL, PRIME_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL,\
+    FIBONACCI_URL, REG_ARITH_SERIES_URL, REG_GEO_SERIES_URL
 from globalconstants.global_constants import GoAPITasks
 
 
@@ -14,6 +15,9 @@ class GoAPIHandler:
     int_to_binary_url = INT_TO_BINARY_URL
     binary_to_int_url = BINARY_TO_INT_URL
     random_binary_url = RANDOM_BINARY_URL
+    fibonacci_url = FIBONACCI_URL
+    reg_arith_series_url = REG_ARITH_SERIES_URL
+    reg_geo_series_url = REG_GEO_SERIES_URL
     headers = {
         'Content-Type': 'application/json',
         'Accept': '*/*'
@@ -33,6 +37,12 @@ class GoAPIHandler:
             resp = cls.binary_to_int(query)
         elif task is GoAPITasks.RANDOM_BINARY:
             resp = cls.random_binary(query)
+        elif task is GoAPITasks.FIBONACCI:
+            resp = cls.fibonacci(query)
+        elif task is GoAPITasks.REG_ARITH_SERIES:
+            resp = cls.reg_arith_series(query)
+        elif task is GoAPITasks.REG_GEO_SERIES:
+            resp = cls.reg_geo_series(query)
         else:
             raise Exception(
                 status_code=http.HTTPStatus.BAD_REQUEST,
@@ -113,4 +123,28 @@ class GoAPIHandler:
         return cls.make_request(
             url=cls.base_url+cls.binary_to_int_url,
             params=params
+        )
+
+    @classmethod
+    def fibonacci(cls, query):
+        params = {
+            'terms': query
+        }
+        return cls.make_request(
+            url=cls.base_url+cls.fibonacci_url,
+            params=params
+        )
+
+    @classmethod
+    def reg_arith_series(cls, query):
+        return cls.make_request(
+            url=cls.base_url+cls.reg_arith_series_url,
+            params = query
+        )
+
+    @classmethod
+    def reg_geo_series(cls, query):
+        return cls.make_request(
+            url=cls.base_url+cls.reg_geo_series_url,
+            params = query
         )

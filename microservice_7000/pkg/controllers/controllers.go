@@ -209,7 +209,9 @@ func RegularArithmeticSeriesController(w http.ResponseWriter, r *http.Request) {
 
 	var resp = map[string]interface{}{
 		"function": fmt.Sprintf("Generate an Arithmetic Series with: start = %d, n(terms) = %d, cd = %d", start, terms, cd),
-		"query":    int(terms),
+		"start":    int(start),
+		"terms":    int(terms),
+		"cd":       int(cd),
 		"result":   arithmetic_series,
 		"length":   len(arithmetic_series),
 	}
@@ -247,7 +249,9 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 
 	var resp = map[string]interface{}{
 		"function": fmt.Sprintf("Generate a Geometric Series with: start = %d, n(terms) = %d, cr = %d", start, terms, cr),
-		"query":    int(terms),
+		"start":    int(start),
+		"terms":    int(terms),
+		"cr":       int(cr),
 		"result":   geometric_series,
 		"length":   len(geometric_series),
 	}

@@ -45,7 +45,7 @@ func RegularGeometricSeries(start int, terms int, cr int) ([]int, error) {
 	}
 	for counter <= terms {
 		last_elem := geo_series[len(geo_series)-1]
-		new_elem := last_elem + cr
+		new_elem := last_elem * cr
 		geo_series = append(geo_series, new_elem)
 		counter += 1
 	}

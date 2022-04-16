@@ -10,3 +10,6 @@ class GoAPITasks:
     INT_TO_BINARY = "int_to_binary"
     BINARY_TO_INT = "binary_to_int"
     RANDOM_BINARY = "random_binary"
+    FIBONACCI = "fibonacci"
+    REG_ARITH_SERIES = "reg_arith_series"
+    REG_GEO_SERIES = "reg_geo_series"
