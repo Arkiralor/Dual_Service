@@ -225,17 +225,17 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 	terms_str := r.URL.Query().Get("terms")
 	cr_str := r.URL.Query().Get("cr")
 
-	start, start_err := strconv.ParseFloat(start_str, 10)
+	start, start_err := strconv.ParseFloat(start_str, 32)
 	if start_err != nil {
 		log.Printf("Error: %v", start_err.Error())
 		panic(start_err)
 	}
-	terms, terms_err := strconv.ParseFloat(terms_str, 10)
+	terms, terms_err := strconv.ParseFloat(terms_str, 32)
 	if terms_err != nil {
 		log.Printf("Error: %v", terms_err.Error())
 		panic(terms_err)
 	}
-	cr, cr_err := strconv.ParseFloat(cr_str, 10)
+	cr, cr_err := strconv.ParseFloat(cr_str, 32)
 	if cr_err != nil {
 		log.Printf("Error: %v", cr_err.Error())
 		panic(cr_err)
@@ -249,9 +249,9 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 
 	var resp = map[string]interface{}{
 		"function": fmt.Sprintf("Generate a Geometric Series with: start = %v, n(terms) = %v, cr = %v", start, terms, cr),
-		"start":    int(start),
-		"terms":    int(terms),
-		"cr":       int(cr),
+		"start":    start,
+		"terms":    terms,
+		"cr":       cr,
 		"result":   geometric_series,
 		"length":   len(geometric_series),
 	}

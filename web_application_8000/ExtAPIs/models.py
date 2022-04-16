@@ -159,23 +159,3 @@ class ArithSeriesModel(models.Model):
         return f"{self.function}"
 
 
-class GeoSeriesModel(models.Model):
-    requested_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name='last_geo_series_requester', null=True)
-    requested_at = models.DateTimeField(auto_now=True)
-    function = models.CharField(max_length=256)
-    length = models.IntegerField(blank=True, null=True)
-    start = models.FloatField(default=0)
-    terms = models.IntegerField(default=0)
-    cr = models.IntegerField(default=0)
-    result = ArrayField(
-        models.CharField(max_length=256),
-        size=8191,
-    )
-
-    class Meta:
-        ordering = ['-requested_at']
-        unique_together = ('function', 'start', 'terms', 'cr')
-
-    def __str__(self):
-        return f"{self.function}"

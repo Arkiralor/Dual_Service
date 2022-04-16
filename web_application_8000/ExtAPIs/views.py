@@ -7,9 +7,9 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary, \
-    FibonacciModel, ArithSeriesModel, GeoSeriesModel
+    FibonacciModel, ArithSeriesModel
 from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, PrimeFactorSerializer, IntToBinarySerializer,\
-    BinaryToIntSerializer, RandomBinarySerializer, FibonacciSerializer, ArithSeriesSerializer, GeoSeriesSerializer
+    BinaryToIntSerializer, RandomBinarySerializer, FibonacciSerializer, ArithSeriesSerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
 from globalconstants.global_constants import GoAPITasks
 
@@ -293,36 +293,21 @@ class RegGeoSeriesView(APIView):
     task = GoAPITasks.REG_GEO_SERIES
 
     def get(self, request):
-        start = float(request.query_params.get('start', 0))
-        terms = float(request.query_params.get('terms', 0))
-        cr = float(request.query_params.get('cr', 0))
+        '''
+        This API does not use Django Models for caching as the rounding error in floating point numbers
+        renders it useless.
+        '''
+        start = request.query_params.get('start')
+        terms = request.query_params.get('terms')
+        cr = request.query_params.get('cr')
         params = {
             'start': start,
             'terms': terms,
             'cr': cr
         }
-        qryset = GeoSeriesModel.objects.filter(
-            models.Q(start=start) 
-            and models.Q(terms=terms) 
-            and models.Q(cr=cr)
-        ).first()
-        if not qryset:
-            resp = GoAPIHandler.dispatch(task=self.task, query=params)
-            resp['requested_by'] = request.user.id
-            if resp.get('length') > 8191:
-                resp['result'] = resp.get('result')[:8190]
-                resp['function'] = resp.get('function') + ' (truncated till [8190])'
-            new_qryset = GeoSeriesSerializer(data=resp)
-            if new_qryset.is_valid():
-                new_qryset.save()
-                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
-            else:
-                return Response(
-                    new_qryset.errors, 
-                    status=status.HTTP_400_BAD_REQUEST
-                    )
-        serialized = GeoSeriesSerializer(qryset)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
+        resp['requested_by'] = request.user.id
         return Response(
-            serialized.data,
+            resp, 
             status=status.HTTP_200_OK
-        )
+            )

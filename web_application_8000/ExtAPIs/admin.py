@@ -1,7 +1,6 @@
 from django.contrib import admin
 from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary, \
-    FibonacciModel, ArithSeriesModel, GeoSeriesModel
-
+    FibonacciModel, ArithSeriesModel
 # Register your models here.
 
 
@@ -73,13 +72,4 @@ class ArithSeriesAdmin(admin.ModelAdmin):
                     'length', 'start', 'terms', 'cd', 'result')
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'start', 'terms', 'cd']
-    list_per_page = 50
-
-
-@admin.register(GeoSeriesModel)
-class GeoSeriesAdmin(admin.ModelAdmin):
-    list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'start', 'terms', 'cr', 'result')
-    ordering = ['-requested_at']
-    search_fields = ['function', 'result', 'start', 'terms', 'cr']
     list_per_page = 50

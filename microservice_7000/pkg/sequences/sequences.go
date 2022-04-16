@@ -45,10 +45,11 @@ func RegularArithmeticSeries(start int, terms int, cd int) ([]int, error) {
 func RegularGeometricSeries(start float32, terms float32, cr float32) ([]float32, error) {
 	var geo_series []float32 = []float32{start}
 	var counter int = 1
+	var count_max int = int(terms)
 	if terms < 3 {
 		return nil, errors.New("number of terms cannot be lower than 3")
 	}
-	for counter <= int(terms) {
+	for counter <= count_max {
 		last_elem := geo_series[len(geo_series)-1]
 		new_elem := last_elem * cr
 		log.Printf("Appending new element to Geometric Series: %v\n", new_elem)
