@@ -1,6 +1,7 @@
 cd Gorilla_SC/cmd/main
-echo "Building microservice_7000"
+echo "Building Gorilla_SC/cmd/main"
 go build
-echo "Built microservice_7000"
-echo "Starting microservice_7000"
+echo "Built Gorilla_SC/cmd/main"
+echo "Starting Gorilla_SC/cmd/main"
+echo "Gorilla APIs active..."
 go run main.go
