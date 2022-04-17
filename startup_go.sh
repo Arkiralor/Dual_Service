@@ -1,4 +1,4 @@
-cd microservice_7000/cmd/main
+cd Gorilla_SC/cmd/main
 echo "Building microservice_7000"
 go build
 echo "Built microservice_7000"
