@@ -73,7 +73,7 @@ class IntToBinaryModel(models.Model):
     function = models.CharField(max_length=256)
     length = models.IntegerField(blank=True, null=True)
     query = models.IntegerField()
-    result = models.IntegerField()
+    result = models.CharField(max_length=256)
 
     class Meta:
         ordering = ['-requested_at']
@@ -90,7 +90,7 @@ class BinaryToIntModel(models.Model):
     function = models.CharField(max_length=256)
     length = models.IntegerField(blank=True, null=True)
     query = models.IntegerField()
-    result = models.IntegerField()
+    result = models.CharField(max_length=256)
 
     class Meta:
         ordering = ['-requested_at']
@@ -107,7 +107,7 @@ class RandomBinary(models.Model):
     function = models.CharField(max_length=256)
     length = models.IntegerField(blank=True, null=True)
     query = models.IntegerField()
-    result = models.IntegerField()
+    result = models.CharField(max_length=256)
 
     class Meta:
         ordering = ['-requested_at']
