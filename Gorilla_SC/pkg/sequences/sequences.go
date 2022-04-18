@@ -42,8 +42,8 @@ func RegularArithmeticSeries(start int, terms int, cd int) ([]int, error) {
 	return arith_series, nil
 }
 
-func RegularGeometricSeries(start float32, terms float32, cr float32) ([]float32, error) {
-	var geo_series []float32 = []float32{start}
+func RegularGeometricSeries(start float64, terms int, cr float64) ([]float64, error) {
+	var geo_series []float64 = []float64{start}
 	var counter int = 1
 	var count_max int = int(terms)
 	if terms < 3 {

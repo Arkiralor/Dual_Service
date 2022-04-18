@@ -225,23 +225,23 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 	terms_str := r.URL.Query().Get("terms")
 	cr_str := r.URL.Query().Get("cr")
 
-	start, start_err := strconv.ParseFloat(start_str, 32)
+	start, start_err := strconv.ParseFloat(start_str, 64)
 	if start_err != nil {
 		log.Printf("Error: %v", start_err.Error())
 		panic(start_err)
 	}
-	terms, terms_err := strconv.ParseFloat(terms_str, 32)
+	terms, terms_err := strconv.ParseInt(terms_str, 10, 0)
 	if terms_err != nil {
 		log.Printf("Error: %v", terms_err.Error())
 		panic(terms_err)
 	}
-	cr, cr_err := strconv.ParseFloat(cr_str, 32)
+	cr, cr_err := strconv.ParseFloat(cr_str, 64)
 	if cr_err != nil {
 		log.Printf("Error: %v", cr_err.Error())
 		panic(cr_err)
 	}
 
-	geometric_series, err := sequences.RegularGeometricSeries(float32(start), float32(terms), float32(cr))
+	geometric_series, err := sequences.RegularGeometricSeries(start, int(terms), cr)
 	if err != nil {
 		log.Printf("Error: %v", err.Error())
 		panic(err)

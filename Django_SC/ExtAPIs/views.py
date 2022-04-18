@@ -7,9 +7,9 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, \
-    FibonacciModel, ArithSeriesModel
+    FibonacciModel, ArithSeriesModel, GeoSeriesModel
 from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, PrimeFactorSerializer, IntToBinarySerializer,\
-    BinaryToIntSerializer, FibonacciSerializer, ArithSeriesSerializer
+    BinaryToIntSerializer, FibonacciSerializer, ArithSeriesSerializer, GeoSeriesSerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
 from globalconstants.global_constants import GoAPITasks
 
@@ -288,17 +288,35 @@ class RegGeoSeriesView(APIView):
         This API does not use Django Models for caching as the rounding error in floating point numbers
         renders it useless.
         '''
-        start = request.query_params.get('start')
-        terms = request.query_params.get('terms')
-        cr = request.query_params.get('cr')
-        params = {
-            'start': start,
-            'terms': terms,
-            'cr': cr
-        }
-        resp = GoAPIHandler.dispatch(task=self.task, query=params)
-        resp['requested_by'] = request.user.id
+        start = request.query_params.get('start', 0)
+        terms = request.query_params.get('terms', 0)
+        cr = request.query_params.get('cr', 0)
+        
+        qryset = GeoSeriesModel.objects.filter(
+                models.Q(start=start) & models.Q(terms=terms) & models.Q(cr=cr)
+            ).first()
+        if not qryset:
+            params = {
+                'start': start,
+                'terms': terms,
+                'cr': cr
+            }
+            resp = GoAPIHandler.dispatch(task=self.task, query=params)
+            resp['requested_by'] = request.user.id
+            if resp.get('length') > 8191:
+                resp['result'] = resp.get('result')[:8190]
+                resp['function'] = resp.get('function') + ' (truncated till [8190])'
+            new_qryset = GeoSeriesSerializer(data=resp)
+            if new_qryset.is_valid():
+                new_qryset.save()
+                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(
+                    new_qryset.errors, 
+                    status=status.HTTP_400_BAD_REQUEST
+                    )
+        serialized = GeoSeriesSerializer(qryset)
         return Response(
-            resp, 
+            serialized.data,
             status=status.HTTP_200_OK
-            )
+        )
