@@ -100,23 +100,6 @@ class BinaryToIntModel(models.Model):
         return f"{self.function}"
 
 
-class RandomBinary(models.Model):
-    requested_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name='last_randbin_requester', null=True)
-    requested_at = models.DateTimeField(auto_now=True)
-    function = models.CharField(max_length=256)
-    length = models.IntegerField(blank=True, null=True)
-    query = models.IntegerField()
-    result = models.CharField(max_length=256)
-
-    class Meta:
-        ordering = ['-requested_at']
-        unique_together = ('function', 'result', 'query')
-
-    def __str__(self):
-        return f"{self.function}"
-
-
 class FibonacciModel(models.Model):
     requested_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name='last_fibonacci_requester', null=True)

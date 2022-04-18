@@ -6,10 +6,10 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary, \
+from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, \
     FibonacciModel, ArithSeriesModel
 from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, PrimeFactorSerializer, IntToBinarySerializer,\
-    BinaryToIntSerializer, RandomBinarySerializer, FibonacciSerializer, ArithSeriesSerializer
+    BinaryToIntSerializer, FibonacciSerializer, ArithSeriesSerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
 from globalconstants.global_constants import GoAPITasks
 
@@ -127,23 +127,16 @@ class RandomBinaryNumber(APIView):
     task = GoAPITasks.RANDOM_BINARY
 
     def get(self, request):
+        '''
+        This API does not use Django Models for caching as that would be pointless
+        in what is essentially a Random Number Generator.
+        '''
         params = request.query_params.get('bits', 0)
-        qryset = RandomBinary.objects.filter(query=params).first()
-        if not qryset:
-            resp = GoAPIHandler.dispatch(task=self.task, query=params)
-            resp['requested_by'] = request.user.id
-            new_qryset = RandomBinarySerializer(data=resp)
-            if new_qryset.is_valid():
-                new_qryset.save()
-                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
-            else:
-                return Response(
-                    new_qryset.errors, 
-                    status=status.HTTP_400_BAD_REQUEST
-                    )
-        serialized = RandomBinarySerializer(qryset)
+        resp = GoAPIHandler.dispatch(task=self.task, query=params)
+        resp['requested_by'] = request.user.id
+        
         return Response(
-            serialized.data,
+            resp,
             status=status.HTTP_200_OK
         )
 

@@ -1,6 +1,6 @@
 from dataclasses import field
 from rest_framework import serializers
-from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, RandomBinary, \
+from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, \
     FibonacciModel, ArithSeriesModel
 
 
@@ -31,12 +31,6 @@ class IntToBinarySerializer(serializers.ModelSerializer):
 class BinaryToIntSerializer(serializers.ModelSerializer):
     class Meta:
         model = BinaryToIntModel
-        fields = '__all__'
-
-
-class RandomBinarySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RandomBinary
         fields = '__all__'
 
 
