@@ -114,6 +114,7 @@ RANDOM_BINARY_URL = [string]
 FIBONACCI_URL = [string]
 REG_ARITH_SERIES_URL = [string]
 REG_GEO_SERIES_URL = [string]
+PROJECTILE_PATH_2D_URL = [string]
 ```
 
 ### Go
