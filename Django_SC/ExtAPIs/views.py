@@ -251,10 +251,8 @@ class RegArithSeriesView(APIView):
             'cd': cd
         }
         qryset = ArithSeriesModel.objects.filter(
-            models.Q(start=start) 
-            and models.Q(terms=terms) 
-            and models.Q(cd=cd)
-        ).first()
+                models.Q(start=start) & models.Q(terms=terms) & models.Q(cd=cd)
+            ).first()
         if not qryset:
             resp = GoAPIHandler.dispatch(task=self.task, query=params)
             resp['requested_by'] = request.user.id
