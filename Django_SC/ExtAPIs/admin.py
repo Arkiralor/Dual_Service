@@ -78,7 +78,7 @@ class GeoSeriesAdmin(admin.ModelAdmin):
 @admin.register(ProjectilePath2DModel)
 class ProjectilePath2DAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'launch_angle', 'launch_velocity', 'launch_height', 'result')
+                    'launch_angle', 'launch_velocity', 'launch_height')
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'launch_angle', 'launc_velocity', 'launch_height']
     list_per_page = 50
