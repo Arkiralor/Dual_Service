@@ -10,6 +10,7 @@ RANDOM_BINARY_URL = environ.get('RANDOM_BINARY_URL')
 FIBONACCI_URL = environ.get('FIBONACCI_URL')
 REG_ARITH_SERIES_URL = environ.get('REG_ARITH_SERIES_URL')
 REG_GEO_SERIES_URL = environ.get('REG_GEO_SERIES_URL')
+PROJECTILE_PATH_2D_URL = environ.get('PROJECTILE_PATH_2D_URL')
 
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@ FROM golang:1.14-buster
 WORKDIR /dual_service
 
 COPY requirements.txt .
-RUN python3.8 -n venv env
-RUN source env/bin/activate
+# RUN python3.8 -n venv env
+# RUN source env/bin/activate
 RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
 
@@ -42,6 +42,6 @@ COPY Gorilla_SC .
 RUN chmod +x startup_dj.sh
 RUN chmod +x startup_go.sh
 
-RUN ./startup_dj.sh
-RUN ./startup_go.sh
+RUN ./startboth.sh
+
 

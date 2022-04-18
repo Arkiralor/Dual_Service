@@ -9,6 +9,7 @@ import (
 	"sample_project/pkg/binaries"
 	"sample_project/pkg/factors"
 	"sample_project/pkg/prime_numbers"
+	"sample_project/pkg/projectiles"
 	"sample_project/pkg/sequences"
 	"strconv"
 )
@@ -254,6 +255,45 @@ func RegularGeometricSeriesController(w http.ResponseWriter, r *http.Request) {
 		"cr":       cr,
 		"result":   geometric_series,
 		"length":   len(geometric_series),
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(resp)
+}
+
+//Controller to handle request to find coordinates of a projectiles path
+func ProjectilePath2DController(w http.ResponseWriter, r *http.Request) {
+	theta_str := r.URL.Query().Get("theta")
+	u_str := r.URL.Query().Get("u")
+	h_str := r.URL.Query().Get("h")
+
+	theta, theta_err := strconv.ParseFloat(theta_str, 64)
+	if theta_err != nil {
+		log.Printf("Error: %v", theta_err.Error())
+		panic(theta_err)
+	}
+	u, u_err := strconv.ParseFloat(u_str, 64)
+	if u_err != nil {
+		log.Printf("Error: %v", u_err.Error())
+		panic(u_err)
+	}
+	h, h_err := strconv.ParseFloat(h_str, 64)
+	if h_err != nil {
+		log.Printf("Error: %v", h_err.Error())
+		panic(h_err)
+	}
+	response_slice, resp_err := projectiles.CalculateProjectilePath2D(theta, u, h)
+	if resp_err != nil {
+		log.Printf("Error: %v", resp_err.Error())
+		panic(resp_err)
+	}
+	resp := map[string]interface{}{
+		"function":        fmt.Sprintf("Calculate the Projectile Path for a 2D Projectile with: theta = %v, u = %v, h = %v", theta, u, h),
+		"launch_angle":    theta,
+		"launch_velocity": u,
+		"launch_height":   h,
+		"result":          response_slice,
+		"length":          len(response_slice),
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

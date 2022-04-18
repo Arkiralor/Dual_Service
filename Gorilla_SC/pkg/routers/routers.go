@@ -17,4 +17,5 @@ var RegisterRoutes = func(router *mux.Router) {
 	router.HandleFunc("/api/v1/fibonacci", controllers.FibonacciSequenceController).Methods("GET")
 	router.HandleFunc("/api/v1/arith_series", controllers.RegularArithmeticSeriesController).Methods("GET")
 	router.HandleFunc("/api/v1/geo_series", controllers.RegularGeometricSeriesController).Methods("GET")
+	router.HandleFunc("/api/v1/projectile_path_2d", controllers.ProjectilePath2DController).Methods("GET")
 }

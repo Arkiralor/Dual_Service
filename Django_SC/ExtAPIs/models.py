@@ -164,3 +164,25 @@ class GeoSeriesModel(models.Model):
         return f"{self.function}"
 
 
+class ProjectilePath2DModel(models.Model):
+    requested_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name='last_projectile_2d_requester', null=True)
+    requested_at = models.DateTimeField(auto_now=True)
+    function = models.CharField(max_length=256)
+    length = models.IntegerField(blank=True, null=True)
+    launch_angle = models.FloatField(default=0)
+    launch_height = models.FloatField(default=0)
+    launch_velocity = models.FloatField(default=0)
+    result = ArrayField(
+        models.JSONField(),
+        size=8191,
+    )
+
+    class Meta:
+        ordering = ['-requested_at']
+        unique_together = ('function', 'launch_angle', 'launch_height', 'launch_velocity')
+
+    def __str__(self):
+        return f"{self.function}"
+
+

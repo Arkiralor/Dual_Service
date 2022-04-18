@@ -13,3 +13,4 @@ class GoAPITasks:
     FIBONACCI = "fibonacci"
     REG_ARITH_SERIES = "reg_arith_series"
     REG_GEO_SERIES = "reg_geo_series"
+    PROJECTILE_PATH_2D = "projectile_path_2d"

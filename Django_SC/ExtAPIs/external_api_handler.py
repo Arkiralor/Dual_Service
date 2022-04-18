@@ -3,7 +3,7 @@ import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
     FIND_FACTORS_URL, PRIME_FACTORS_URL, INT_TO_BINARY_URL, BINARY_TO_INT_URL, RANDOM_BINARY_URL,\
-    FIBONACCI_URL, REG_ARITH_SERIES_URL, REG_GEO_SERIES_URL
+    FIBONACCI_URL, REG_ARITH_SERIES_URL, REG_GEO_SERIES_URL, PROJECTILE_PATH_2D_URL
 from globalconstants.global_constants import GoAPITasks
 
 
@@ -18,6 +18,7 @@ class GoAPIHandler:
     fibonacci_url = FIBONACCI_URL
     reg_arith_series_url = REG_ARITH_SERIES_URL
     reg_geo_series_url = REG_GEO_SERIES_URL
+    projectile_path_2d_url = PROJECTILE_PATH_2D_URL
     headers = {
         'Content-Type': 'application/json',
         'Accept': '*/*'
@@ -43,11 +44,10 @@ class GoAPIHandler:
             resp = cls.reg_arith_series(query)
         elif task is GoAPITasks.REG_GEO_SERIES:
             resp = cls.reg_geo_series(query)
+        elif task is GoAPITasks.PROJECTILE_PATH_2D:
+            resp = cls.projectile_path_2d(query)
         else:
-            raise Exception(
-                status_code=http.HTTPStatus.BAD_REQUEST,
-                detail="Invalid task"
-            )
+            raise Exception(f"Error Go API response: Improper task name: {task}")
         return resp
 
     @classmethod
@@ -60,10 +60,7 @@ class GoAPIHandler:
         if resp.status_code in (200, 201, 202):
             return resp.json()
         else:
-            raise Exception(
-                status_code=resp.status_code,
-                detail=resp.content
-            )
+            raise Exception(f"Error Go API response: {resp.status_code} {resp.content}")
 
     @classmethod
     def find_prime_list(cls, query):
@@ -146,5 +143,12 @@ class GoAPIHandler:
     def reg_geo_series(cls, query):
         return cls.make_request(
             url=cls.base_url+cls.reg_geo_series_url,
+            params = query
+        )
+
+    @classmethod
+    def projectile_path_2d(cls, query):
+        return cls.make_request(
+            url=cls.base_url+cls.projectile_path_2d_url,
             params = query
         )

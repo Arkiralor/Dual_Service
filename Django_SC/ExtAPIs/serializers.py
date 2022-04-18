@@ -1,7 +1,7 @@
 from dataclasses import field
 from rest_framework import serializers
 from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, \
-    FibonacciModel, ArithSeriesModel, GeoSeriesModel
+    FibonacciModel, ArithSeriesModel, GeoSeriesModel, ProjectilePath2DModel
 
 
 class PrimeSerializer(serializers.ModelSerializer):
@@ -49,4 +49,9 @@ class ArithSeriesSerializer(serializers.ModelSerializer):
 class GeoSeriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = GeoSeriesModel
+        fields = '__all__'
+
+class ProjectilePath2DModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectilePath2DModel
         fields = '__all__'

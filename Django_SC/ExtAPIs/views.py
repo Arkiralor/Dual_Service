@@ -7,9 +7,9 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from ExtAPIs.models import Prime, Factor, PrimeFactorModel, IntToBinaryModel, BinaryToIntModel, \
-    FibonacciModel, ArithSeriesModel, GeoSeriesModel
+    FibonacciModel, ArithSeriesModel, GeoSeriesModel, ProjectilePath2DModel
 from ExtAPIs.serializers import PrimeSerializer, FactorSerializer, PrimeFactorSerializer, IntToBinarySerializer,\
-    BinaryToIntSerializer, FibonacciSerializer, ArithSeriesSerializer, GeoSeriesSerializer
+    BinaryToIntSerializer, FibonacciSerializer, ArithSeriesSerializer, GeoSeriesSerializer, ProjectilePath2DModelSerializer
 from ExtAPIs.external_api_handler import GoAPIHandler
 from globalconstants.global_constants import GoAPITasks
 
@@ -316,6 +316,49 @@ class RegGeoSeriesView(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                     )
         serialized = GeoSeriesSerializer(qryset)
+        return Response(
+            serialized.data,
+            status=status.HTTP_200_OK
+        )
+
+
+class ProjectilePath2DView(APIView):
+    '''
+    API to find 'n' terms of a Regular Geometric Series
+    '''
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    task = GoAPITasks.PROJECTILE_PATH_2D
+
+    def get(self, request):
+        u = request.query_params.get('u', 0)
+        h = request.query_params.get('h', 0)
+        theta = request.query_params.get('theta', 0)
+        
+        qryset = ProjectilePath2DModel.objects.filter(
+                models.Q(launch_velocity__iexact=u) & models.Q(launch_height__iexact=h) & models.Q(launch_angle__iexact=theta)
+            ).first()
+        if not qryset:
+            params = {
+                'u': u,
+                'theta': theta,
+                'h': h
+            }
+            resp = GoAPIHandler.dispatch(task=self.task, query=params)
+            resp['requested_by'] = request.user.id
+            if resp.get('length') > 8191:
+                resp['result'] = resp.get('result')[:8190]
+                resp['function'] = resp.get('function') + ' (truncated till [8190])'
+            new_qryset = ProjectilePath2DModelSerializer(data=resp)
+            if new_qryset.is_valid():
+                new_qryset.save()
+                return Response(new_qryset.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(
+                    new_qryset.errors, 
+                    status=status.HTTP_400_BAD_REQUEST
+                    )
+        serialized = ProjectilePath2DModelSerializer(qryset)
         return Response(
             serialized.data,
             status=status.HTTP_200_OK

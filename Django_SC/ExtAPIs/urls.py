@@ -1,6 +1,6 @@
 from django.urls import path
 from ExtAPIs.views import FindPrimesInRangeView, FindFactors, PrimeFactorView, RandomBinaryNumber, BinaryToInt, IntToBinary, \
-    FibonacciView, RegArithSeriesView, RegGeoSeriesView
+    FibonacciView, RegArithSeriesView, RegGeoSeriesView, ProjectilePath2DView
 
 urlpatterns = [
     path('primesinrange/', FindPrimesInRangeView.as_view(), name="find_primes_in_range"),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('fibonacci/', FibonacciView.as_view(), name="fibonacci_sequence"),
     path('arith_series/', RegArithSeriesView.as_view(), name="arithmetic_series"),
     path('geo_series/', RegGeoSeriesView.as_view(), name="geometric_series"),
+    path('projectile_path_2d/', ProjectilePath2DView.as_view(), name="projectile_path_2d"),
 ]
