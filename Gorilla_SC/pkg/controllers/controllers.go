@@ -269,17 +269,17 @@ func ProjectilePath2DController(w http.ResponseWriter, r *http.Request) {
 
 	theta, theta_err := strconv.ParseFloat(theta_str, 64)
 	if theta_err != nil {
-		log.Printf("Error: %v", theta_err.Error())
+		log.Printf("Error in Parsing Theta: %v", theta_err.Error())
 		panic(theta_err)
 	}
 	u, u_err := strconv.ParseFloat(u_str, 64)
 	if u_err != nil {
-		log.Printf("Error: %v", u_err.Error())
+		log.Printf("Error in Parsing U: %v", u_err.Error())
 		panic(u_err)
 	}
 	h, h_err := strconv.ParseFloat(h_str, 64)
 	if h_err != nil {
-		log.Printf("Error: %v", h_err.Error())
+		log.Printf("Error in Parsing H: %v", h_err.Error())
 		panic(h_err)
 	}
 	response_slice, resp_err := projectiles.CalculateProjectilePath2D(theta, u, h)
