@@ -1,11 +1,11 @@
 FROM python:3.10
 
 
-WORKDIR /dual_service
+WORKDIR /Django_SC
 
 COPY . .
 RUN python -m pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 ## DATABASE SETTINGS
 ENV PGDATABASE = "dual_service_db"
@@ -34,9 +34,7 @@ ENV FIBONACCI_URL = "fibonacci"
 ENV REG_ARITH_SERIES_URL = "arith_series"
 ENV REG_GEO_SERIES_URL = "geo_series"
 
-FROM golang:1.14-buster
-
-EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
 
