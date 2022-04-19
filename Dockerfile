@@ -3,13 +3,7 @@ FROM python:3.10
 
 WORKDIR /dual_service
 
-# COPY requirements.txt .
-# COPY startboth.sh .
 COPY . .
-# RUN python -m ensurepip
-# RUN apt install python3-pip -y
-# RUN python -m venv env
-# RUN source env/scripts/activate
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
