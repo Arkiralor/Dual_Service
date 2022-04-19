@@ -288,7 +288,7 @@ func ProjectilePath2DController(w http.ResponseWriter, r *http.Request) {
 		panic(resp_err)
 	}
 	resp := map[string]interface{}{
-		"function":        fmt.Sprintf("Calculate the Projectile Path for a 2D Projectile with: theta = %v, u = %v, h = %v", theta, u, h),
+		"function":        fmt.Sprintf("Calculate the Projectile Path for a 2D Projectile with: theta = %v°, u = %vm/s, h = %vm", theta, u, h),
 		"launch_angle":    theta,
 		"launch_velocity": u,
 		"launch_height":   h,

@@ -1,16 +1,20 @@
-FROM python:slim-buster
-FROM golang:1.14-buster
+FROM python:3.10
+
 
 WORKDIR /dual_service
 
-COPY requirements.txt .
-# RUN python3.8 -n venv env
-# RUN source env/bin/activate
+# COPY requirements.txt .
+# COPY startboth.sh .
+COPY . .
+# RUN python -m ensurepip
+# RUN apt install python3-pip -y
+# RUN python -m venv env
+# RUN source env/scripts/activate
 RUN python -m pip install --upgrade pip
-RUN python -m pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 ## DATABASE SETTINGS
-ENV PGDATABASE = "sample_db"
+ENV PGDATABASE = "dual_service_db"
 ENV PGUSER = "prithoo"
 ENV PGPASSWORD = "password"
 ENV PGHOST = "localhost"
@@ -36,12 +40,9 @@ ENV FIBONACCI_URL = "fibonacci"
 ENV REG_ARITH_SERIES_URL = "arith_series"
 ENV REG_GEO_SERIES_URL = "geo_series"
 
-COPY Django_SC .
-COPY Gorilla_SC .
+FROM golang:1.14-buster
 
-RUN chmod +x startup_dj.sh
-RUN chmod +x startup_go.sh
+EXPOSE 8000
 
-RUN ./startboth.sh
 
 
