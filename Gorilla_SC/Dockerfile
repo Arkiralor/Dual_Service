@@ -6,4 +6,4 @@ COPY . .
 
 RUN go get github.com/gorilla/mux
 
-CMD ["go", "run", "main.go", "0.0.0.0:7000"]
+CMD ["go", "run", "cmd/main/main.go", "0.0.0.0:7000"]
