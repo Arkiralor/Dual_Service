@@ -5,6 +5,5 @@ echo "Built Gorilla_SC/cmd/main"
 echo "Starting Gorilla_SC/cmd/main"
 echo "Gorilla APIs active..."
 go run main.go &
-cd ../../../
-cd Django_SC/
+cd ../../../Django_SC/
 python manage.py runserver
