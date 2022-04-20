@@ -4,8 +4,9 @@ FROM python:3.10
 WORKDIR /Django_SC
 
 COPY . .
+
 RUN python -m pip install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 ## DATABASE SETTINGS
 ENV PGDATABASE = "dual_service_db"
@@ -33,6 +34,7 @@ ENV RANDOM_BINARY_URL = "random_binary"
 ENV FIBONACCI_URL = "fibonacci"
 ENV REG_ARITH_SERIES_URL = "arith_series"
 ENV REG_GEO_SERIES_URL = "geo_series"
+ENV PROJECTILE_PATH_2D_URL = "projectile_path_2d"
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
