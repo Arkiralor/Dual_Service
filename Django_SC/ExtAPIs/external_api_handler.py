@@ -1,4 +1,3 @@
-import http
 import requests
 
 from globalconstants.masked_constants import GO_BASE_URL, PRIME_LIST_URL, \
