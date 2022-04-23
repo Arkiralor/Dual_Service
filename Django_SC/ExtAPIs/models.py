@@ -21,6 +21,8 @@ class Prime(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'query')
+        verbose_name = 'Prime Number'
+        verbose_name_plural = 'Prime Numbers'
 
     def __str__(self):
         return f"{self.function}"
@@ -41,6 +43,8 @@ class Factor(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'query')
+        verbose_name = 'Factor'
+        verbose_name_plural = 'Factors'
 
     def __str__(self):
         return f"{self.function}"
@@ -61,6 +65,8 @@ class PrimeFactorModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'query')
+        verbose_name = 'Prime Factor'
+        verbose_name_plural = 'Prime Factors'
 
     def __str__(self):
         return f"{self.function}"
@@ -78,6 +84,8 @@ class IntToBinaryModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'result', 'query')
+        verbose_name = 'Int to Binary'
+        verbose_name_plural = 'Int to Binaries'
 
     def __str__(self):
         return f"{self.function}"
@@ -95,6 +103,8 @@ class BinaryToIntModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'result', 'query')
+        verbose_name = 'Binary to Int'
+        verbose_name_plural = 'Binary to Integers'
 
     def __str__(self):
         return f"{self.function}"
@@ -115,6 +125,8 @@ class FibonacciModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'query')
+        verbose_name = 'Fibonacci Sequence'
+        verbose_name_plural = 'Fibonacci Sequences'
 
     def __str__(self):
         return f"{self.function}"
@@ -137,6 +149,8 @@ class ArithSeriesModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'start', 'terms', 'cd')
+        verbose_name = 'Arithmetic Series'
+        verbose_name_plural = 'Arithmetic Series'
 
     def __str__(self):
         return f"{self.function}"
@@ -159,6 +173,9 @@ class GeoSeriesModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'start', 'terms', 'cr')
+        verbose_name = 'Geometric Series'
+        verbose_name_plural = 'Geometric Series'
+        
 
     def __str__(self):
         return f"{self.function}"
@@ -181,6 +198,8 @@ class ProjectilePath2DModel(models.Model):
     class Meta:
         ordering = ['-requested_at']
         unique_together = ('function', 'launch_angle', 'launch_height', 'launch_velocity')
+        verbose_name = '2D Projectile Path'
+        verbose_name_plural = '2D Projectile Paths'
 
     def __str__(self):
         return f"{self.function}"
