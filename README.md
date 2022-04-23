@@ -22,6 +22,19 @@ The Go Web-Application that we will build in Go will be used for more complex ta
 - Computing the Factors of a given number.
 - Computing the Prime Factors of a given number, etc.
 
+### Mathematical Functions Registered
+
+1. _Find all Prime Numbers less than or equal to a given number._
+2. _Find all Factors of a given number._
+3. _Find all Prime Factors of a given number._
+4. _Convert a given base-10 Integer into its base-2 counterpart._
+5. _Convert a given base-2 Number into its base-10 counterpart._
+6. _Generate a random base-2 number, given the number of Bits._
+7. _Generate 'n' terms of the Fibonacci Sequence._
+8. _Generate 'n' terms of a Regular Arithmetic Progression, given the Starting Value and the Common Difference._
+9. _Generate 'n' terms of a Regular Geometric Progression, given the Starting Value and the Common Ratio._
+10. _Generate the Coordinate List of the parabolic path through 2D space, followed by a projectile, given the Angle of Projection, Initial Velocity of Projection and the Height of Projection._
+
 ## Simplified Algorithm
 
 ![Block Diagram Flowchart for the Algorithm](https://i.imgur.com/q0wddgC.png "Algorithm for the Application Set")

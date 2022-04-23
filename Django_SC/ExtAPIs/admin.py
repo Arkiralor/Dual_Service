@@ -26,7 +26,7 @@ class FactorAdmin(admin.ModelAdmin):
 @admin.register(PrimeFactorModel)
 class PrimeFactorAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'query', 'result')
+                    'length', 'query')
     raw_id_fields = ('requested_by',)
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'query']
@@ -56,7 +56,7 @@ class BinaryToIntAdmin(admin.ModelAdmin):
 @admin.register(FibonacciModel)
 class FibonacciAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'query', 'result')
+                    'length', 'query')
     raw_id_fields = ('requested_by',)
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'query']
@@ -66,7 +66,7 @@ class FibonacciAdmin(admin.ModelAdmin):
 @admin.register(ArithSeriesModel)
 class ArithSeriesAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'start', 'terms', 'cd', 'result')
+                    'length', 'start', 'terms', 'cd')
     raw_id_fields = ('requested_by',)
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'start', 'terms', 'cd']
@@ -76,7 +76,7 @@ class ArithSeriesAdmin(admin.ModelAdmin):
 @admin.register(GeoSeriesModel)
 class GeoSeriesAdmin(admin.ModelAdmin):
     list_display = ('requested_by', 'requested_at', 'function',
-                    'length', 'start', 'terms', 'cr', 'result')
+                    'length', 'start', 'terms', 'cr')
     raw_id_fields = ('requested_by',)
     ordering = ['-requested_at']
     search_fields = ['function', 'result', 'start', 'terms', 'cr']
