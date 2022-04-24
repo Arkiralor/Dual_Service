@@ -72,10 +72,6 @@ DATABASES = {
         'PASSWORD': environ['PGPASSWORD'],
         'HOST': environ['PGHOST'],
         'PORT': environ['PGPORT'],
-    },
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': f"{BASE_DIR.parent}/test_db.sqlite3",
     }
 }
 

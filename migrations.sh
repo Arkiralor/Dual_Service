@@ -1,3 +1,3 @@
-cd Django_SC
-python manage.py makemigrations
-python manage.py migrate
+# cd Django_SC
+python Django_SC/manage.py makemigrations
+python Django_SC/manage.py migrate
