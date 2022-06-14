@@ -84,15 +84,17 @@ def query_handler(query):
 1. `python -m venv env`
 2. `source env/bin/activate`
 3. `python -m pip install --upgrade pip`
-4. `pip install -r requirements.txt`
-5. `./web_application_8000/manage.py makemigrations`
-6. `./web_application_8000/manage.py migrate`
-7. `./web_application_8000/manage.py createsuperuser`
-8. `cd microservice_7000/cmd/main`
-9. `go build`
-10. `cd ../../..`
-11. `./statup_dj.sh`
-12. Open another terminal and run `./startup_go.sh`
+4. `pip install pip-tools`
+5. `pip-compile Django_SC/requirements.in`
+6. `pip install -r Django_SC/requirements.txt`
+7. `./Django_SC/manage.py makemigrations`
+8. `./Django_SC/manage.py migrate`
+9. `./Django_SC/manage.py createsuperuser`
+10. `cd Gorilla_SC/cmd/main`
+11. `go build`
+12. `cd ../../..`
+13. `./statup_dj.sh`
+14. Open another terminal and run `./startup_go.sh`
 
 ## Environments
 
@@ -100,7 +102,7 @@ The `.env` file formats for both the Django and Go environments.
 
 ### Django
 
-```.env
+```ENV
 ## DATABASE SETTINGS
 PGDATABASE = [string]
 PGUSER = [string]
