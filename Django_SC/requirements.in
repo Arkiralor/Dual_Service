@@ -1,0 +1,8 @@
+autopep8==1.6.0                     ## Used to lint and format Python code.
+Django==4.0.4                       ## The Python Web framework for perfectionists with deadlines.
+django-cors-headers==3.11.0         ## Cross-origin resource sharing for Django.
+django-dotenv==1.4.2                ## Load environment variables from a .env file.
+djangorestframework==3.13.1         ## Django REST framework is a flexible and powerful API framework for Django.
+pandas==1.4.2                       ## Python Data Analysis Library.
+psycopg2-binary==2.9.3              ## PostgreSQL Database Adapter for Python.
+requests==2.27.1                    ## Python HTTP for Humans.
